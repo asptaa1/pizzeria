@@ -1,0 +1,1 @@
+drop table if exists PIZZERIA_DELIVERY__U72461 cascade ;

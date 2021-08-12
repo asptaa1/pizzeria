@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://orderEdit.caption"
+        focusComponent="form"
+        messagesPack="ru.rosatom.pizzeria.web.screens.order">
+    <data>
+        <instance id="orderDc"
+                  class="ru.rosatom.pizzeria.entity.Order"
+                  view="order-view">
+            <loader/>
+            <collection id="orderItemsDc" property="orderItems"/>
+            <collection id="paymentsDc" property="payments"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="orderDc">
+            <column width="350px">
+                <textField id="numberField" property="number"/>
+                <lookupField id="statusField" property="status"/>
+                <dateField id="createdDateField" property="createdDate"/>
+                <textField id="totalAmountField" property="totalAmount"/>
+                <textField id="deliverClientNameField" property="deliver.clientName"/>
+                <textField id="deliverPhoneNumberField" property="deliver.phoneNumber"/>
+                <textField id="deliverEmailField" property="deliver.email"/>
+                <textField id="deliverAddressField" property="deliver.address"/>
+                <textField id="deliverCommentField" property="deliver.comment"/>
+                <pickerField id="deliverCourierField" property="deliver.courier">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <groupBox id="orderItemsBox" caption="msg://ru.rosatom.pizzeria.entity/Order.orderItems">
+            <table id="orderItemsTable" dataContainer="orderItemsDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="order"/>
+                    <column id="pizza"/>
+                    <column id="quantity"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="orderItemsTable.create"/>
+                    <button action="orderItemsTable.edit"/>
+                    <button action="orderItemsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <groupBox id="paymentsBox" caption="msg://ru.rosatom.pizzeria.entity/Order.payments">
+            <table id="paymentsTable" dataContainer="paymentsDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="order"/>
+                    <column id="amount"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="paymentsTable.create"/>
+                    <button action="paymentsTable.edit"/>
+                    <button action="paymentsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
